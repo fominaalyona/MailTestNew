@@ -14,7 +14,7 @@ public class MainPage extends AbstractPage{
     private final String DOMAIN = "mailbox:domain";
     private final String PASSWORD = "//div[@class=\"mailbox__input__container\"]/input[@id=\"mailbox:password\"]";
     private final String BUTTON = "//label[@id=\"mailbox:submit\"]/input[@class=\"o-control\"]";
-    private final String LOGEDNAME = "PH_user-email1";
+    private final String LOGEDNAME = "PH_user-email";
 
     @FindBy(xpath = LOGIN)
     private WebElement textBoxLogin;
