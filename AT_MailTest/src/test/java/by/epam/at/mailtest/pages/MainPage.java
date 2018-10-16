@@ -5,9 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class MainPage extends AbstractPage{
+public class MainPage extends NavigationTools {
 
     private final String BASE_URL = "https://mail.ru/";
     private final String LOGIN = "//div[@id=\"mailbox:loginContainer\"]/input[@id=\"mailbox:login\"]";
@@ -15,6 +14,7 @@ public class MainPage extends AbstractPage{
     private final String PASSWORD = "//div[@class=\"mailbox__input__container\"]/input[@id=\"mailbox:password\"]";
     private final String BUTTON = "//label[@id=\"mailbox:submit\"]/input[@class=\"o-control\"]";
     private final String LOGEDNAME = "PH_user-email";
+    private final String SIGNIN = "PH_authLink";
 
     @FindBy(xpath = LOGIN)
     private WebElement textBoxLogin;
@@ -30,6 +30,9 @@ public class MainPage extends AbstractPage{
 
     @FindBy(id = LOGEDNAME)
     private WebElement logedName;
+
+    @FindBy(id = SIGNIN)
+    private WebElement signin;
 
     public MainPage(WebDriver driver) {
         super(driver);
@@ -55,5 +58,12 @@ public class MainPage extends AbstractPage{
             return "Can't find such element on page!";
         }
         return logedName.getText();
+    }
+
+    public boolean isLogout(){
+        if(signin.isDisplayed()){
+            return true;
+        }
+        return false;
     }
 }

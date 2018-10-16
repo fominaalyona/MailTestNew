@@ -5,22 +5,19 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class WriteLetterPage extends AbstractPage {
+public class WriteLetterPage extends NavigationTools {
 
     private final String BASE_URL = "https://e.mail.ru/compose/";
 
     private final String ADDRESSEE = "//div[@class=\"label-input\"]/div[1]/textarea[2]";
     private final String TOPIC = "//div[@class=\"compose-head__field\"]/input[@class=\"b-input\"]";
     private final String MESSAGE = "tinymce";
-    private final String SUBMIT = "//div[@class=\"b-toolbar__group\"]/div[1]/div[1]/span[@class=\"b-toolbar__btn__text\"]";
+
     private final String SAVE = "//*[@id=\"b-toolbar__right\"]/div[3]/div/div[2]/div[2]/div/div[1]/span";
     private final String SUCCESS = "//div[@class =\"message-sent__title\"]";
-    private final String DRAFTS = "//a[@data-mnemo=\"drafts\"]";
     private final String SAVESTATUS = "//div[@data-mnemo=\"saveStatus\"]";
     private final String SENDDRAFT = "//div[@data-name=\"send\"]";
 
-    @FindBy(xpath = DRAFTS)
-    private WebElement drafts;
 
     @FindBy(xpath = ADDRESSEE)
     private WebElement addressee;
@@ -31,8 +28,6 @@ public class WriteLetterPage extends AbstractPage {
     @FindBy(id = MESSAGE)
     private WebElement inputField;
 
-    @FindBy(xpath = SUBMIT)
-    private WebElement buttonSend;
 
     @FindBy(xpath = SAVE)
     private WebElement saveButton;
@@ -56,7 +51,7 @@ public class WriteLetterPage extends AbstractPage {
         driver.navigate().to(BASE_URL);
     }
 
-    public void sendLetter(String email, String topic, String message) {
+    public void saveDraftLetter(String email, String topic, String message) {
         addressee.sendKeys(email);
         this.topic.sendKeys(topic);
         driver.switchTo().frame(0);
@@ -65,16 +60,11 @@ public class WriteLetterPage extends AbstractPage {
         driver.switchTo().defaultContent();
         saveButton.click();
         wait.until(ExpectedConditions.visibilityOf(savedLetter));
-        drafts.click();
     }
 
+
     public void sendDraft(){
-        //wait.until(ExpectedConditions.elementToBeClickable(sendDraft));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-name=\"send\"]")));
         sendDraft.click();
     }
 

@@ -1,6 +1,5 @@
 package by.epam.at.mailtest.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class DraftFolderPage extends AbstractPage {
+public class DraftFolderPage extends NavigationTools {
 
     private final String BASE_URL = "https://e.mail.ru/messages/drafts/";
 
