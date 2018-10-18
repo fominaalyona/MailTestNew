@@ -13,6 +13,7 @@ public class NavigationTools extends AbstractPage {
     private final String INCOME = "//a[@href=\"/messages/inbox/\"]";
     private final String SPAM = "//a[@href=\"/messages/spam/\"]";
     private final String BASKET = "//a[@href=\"/messages/trash/\"]";
+    private final String CLEANBASKET = "//span[@data-name=\"clear-folder\"]";
 
     @FindBy(xpath = SENDEDLETTERS)
     WebElement sendedLetters;
@@ -28,6 +29,9 @@ public class NavigationTools extends AbstractPage {
 
     @FindBy(xpath = BASKET)
     WebElement basket;
+
+    @FindBy(xpath = CLEANBASKET)
+    WebElement cleanBasket;
 
     public void openSendedLetters() {
         sendedLetters.click();
@@ -48,6 +52,8 @@ public class NavigationTools extends AbstractPage {
     public void openBasket(){
         basket.click();
     }
+
+    public void cleanBasket(){cleanBasket.click();}
 
     public NavigationTools(WebDriver driver) {
         super(driver);

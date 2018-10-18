@@ -1,5 +1,7 @@
 package by.epam.at.mailtest.pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,6 +28,11 @@ public class IncomeLettersPage extends NavigationTools {
 
     public void writeLetterClick(){
         buttonWriteLetter.click();
+    }
+
+    public void writeWithKeyboard(){
+        String newLetter = Keys.chord( "n");
+        driver.findElement(By.tagName("html")).sendKeys(newLetter);
     }
 
 }

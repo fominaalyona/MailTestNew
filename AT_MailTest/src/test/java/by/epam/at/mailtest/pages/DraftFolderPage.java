@@ -1,5 +1,6 @@
 package by.epam.at.mailtest.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,9 +15,17 @@ public class DraftFolderPage extends NavigationTools {
     private final String BASE_URL = "https://e.mail.ru/messages/drafts/";
 
     private final String LETTER = "//div[@class=\"b-datalist b-datalist_letters b-datalist_letters_to\"]//div[@data-bem =\"b-datalist__item\"]";
+    private final String SELECTMESSAGE = "//*[@id=\"b-letters\"]/div[1]/div[2]/div/div[2]/div[1]/div/a/div[1]";
+    private final String DELETEMESSAGE = "//div[@class = \"b-toolbar__item\"]//div[@data-name = \"remove\"]/i[@class = \"ico ico_toolbar ico_toolbar_remove\"]";
 
     @FindBy(xpath = LETTER)
     private List<WebElement> lettert;
+
+    @FindBy(xpath = SELECTMESSAGE)
+    private WebElement selectMessage;
+
+    @FindBy(xpath = DELETEMESSAGE)
+    private WebElement deleteMessage;
 
     int index = 0;
 
@@ -60,6 +69,13 @@ public class DraftFolderPage extends NavigationTools {
             index++;
         }
         return true;
+    }
+
+    public void moveDraft(String addressee, String topic, String message){
+        if (checkDraftFolder(addressee,topic,message) == true){
+            lettert.get(index).findElement(By.xpath(SELECTMESSAGE)).click();
+        }
+        deleteMessage.click();
     }
 
 }

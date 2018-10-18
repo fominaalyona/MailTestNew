@@ -2,6 +2,7 @@ package by.epam.at.mailtest.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -33,15 +34,22 @@ public class SendedFolderPage extends NavigationTools {
     }
 
     public boolean checkSendedFolder(String addressee, String topic, String message) {
+        index = 0;
         for (WebElement letter : letters) {
             if (letter.getText().contains(topic + message + "\n" + addressee)) {
                 return true;
             }
+            index++;
         }
         return false;
     }
 
-    public void logoutClick(){
+    public void dragDropLetter() {
+        Actions dragDrop = new Actions(driver);
+        dragDrop.dragAndDrop(letters.get(index), basket).build().perform();
+    }
+
+    public void logoutClick() {
         logout.click();
     }
 }

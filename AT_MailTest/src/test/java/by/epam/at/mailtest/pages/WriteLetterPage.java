@@ -16,8 +16,7 @@ public class WriteLetterPage extends NavigationTools {
     private final String SAVE = "//*[@id=\"b-toolbar__right\"]/div[3]/div/div[2]/div[2]/div/div[1]/span";
     private final String SUCCESS = "//div[@class =\"message-sent__title\"]";
     private final String SAVESTATUS = "//div[@data-mnemo=\"saveStatus\"]";
-    private final String SENDDRAFT = "//div[@data-name=\"send\"]";
-
+    private final String SEND = "//div[@data-name=\"send\"]";
 
     @FindBy(xpath = ADDRESSEE)
     private WebElement addressee;
@@ -28,7 +27,6 @@ public class WriteLetterPage extends NavigationTools {
     @FindBy(id = MESSAGE)
     private WebElement inputField;
 
-
     @FindBy(xpath = SAVE)
     private WebElement saveButton;
 
@@ -38,8 +36,8 @@ public class WriteLetterPage extends NavigationTools {
     @FindBy(xpath = SAVESTATUS)
     private WebElement savedLetter;
 
-    @FindBy(xpath = SENDDRAFT)
-    private WebElement sendDraft;
+    @FindBy(xpath = SEND)
+    private WebElement send;
 
     public WriteLetterPage(WebDriver driver) {
         super(driver);
@@ -51,21 +49,23 @@ public class WriteLetterPage extends NavigationTools {
         driver.navigate().to(BASE_URL);
     }
 
-    public void saveDraftLetter(String email, String topic, String message) {
+    public void writeLetter(String email, String topic, String message) {
         addressee.sendKeys(email);
         this.topic.sendKeys(topic);
         driver.switchTo().frame(0);
-        JavascriptExecutor js = (JavascriptExecutor)driver;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].textContent= arguments[1];", inputField, message);
         driver.switchTo().defaultContent();
+    }
+
+    public void saveDraftLetter(){
         saveButton.click();
         wait.until(ExpectedConditions.visibilityOf(savedLetter));
     }
 
-
-    public void sendDraft(){
+    public void send() {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-name=\"send\"]")));
-        sendDraft.click();
+        send.click();
     }
 
 }
